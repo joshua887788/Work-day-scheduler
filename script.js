@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Load the initial date options
-    // Load the initial date options
+  
     function loadDateOptions() {
         var select = document.getElementById('date-select');
         var currentDate = dayjs();
@@ -11,39 +10,36 @@ document.addEventListener('DOMContentLoaded', function () {
             option.textContent = date.format('MMM DD, YYYY');
             select.appendChild(option);
         }
-        // Set the current date as the selected option
+       
         select.value = currentDate.format('YYYY-MM-DD');
     }
 
-    // Initialize the scheduler
+  
     function initializeScheduler() {
         var select = document.getElementById('date-select');
         select.addEventListener('change', handleDateChange);
 
-        // Load initial events for the selected date
+       
         var selectedDate = select.value;
         loadEvents(selectedDate);
     }
 
-    // Handle date change event
+  
     function handleDateChange(event) {
         var selectedDate = event.target.value;
         loadEvents(selectedDate);
     }
 
-    // Load events for the selected date
-    // Load events for the selected date
-    // Load events for the selected date
-    // Load events for the selected date
+   
     function loadEvents(selectedDate) {
-        // Clear existing events
+       
         var timeBlocksContainer = document.querySelector('.time-block');
         timeBlocksContainer.innerHTML = '';
 
-        // Load events from local storage
+      
         var events = JSON.parse(localStorage.getItem(selectedDate)) || {};
 
-        // Create time blocks for each hour
+    
         for (var i = 9; i <= 17; i++) {
             var currentTime = dayjs(selectedDate).hour(i);
             var eventText = events[i] || '';
@@ -56,9 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-    // Create a time block element
-    // Create a time block element
-    // Create a time block element
+    
     function createTimeBlock(hour, currentTime, eventText) {
         var timeBlock = document.createElement('div');
         timeBlock.id = 'hour-' + hour;
@@ -78,7 +72,6 @@ document.addEventListener('DOMContentLoaded', function () {
         saveButton.setAttribute('aria-label', 'save');
         saveButton.innerHTML = '<i class="fas fa-save" aria-hidden="true"></i>';
 
-        // Add event listener to save button
         saveButton.addEventListener('click', function () {
             var selectedDate = document.getElementById('date-select').value;
             var events = JSON.parse(localStorage.getItem(selectedDate)) || {};
@@ -90,7 +83,6 @@ document.addEventListener('DOMContentLoaded', function () {
         timeBlock.appendChild(textarea);
         timeBlock.appendChild(saveButton);
 
-        // Apply the appropriate class based on the current time
         var currentHour = dayjs().hour();
         if (currentTime.isBefore(dayjs().startOf('day').hour(currentHour), 'hour')) {
             timeBlock.classList.add('past');
@@ -104,13 +96,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    // Update the current day display
+    
     function updateCurrentDay() {
         var currentDay = document.getElementById('currentDay');
         currentDay.textContent = dayjs().format('dddd, MMMM D, YYYY');
     }
 
-    // Initialize the scheduler
     loadDateOptions();
     initializeScheduler();
     updateCurrentDay();
